@@ -40,4 +40,9 @@ public class BoletoController {
     public void deleteBoletoById(@PathVariable Long id) {
         service.deleteBoletoById(id);
     }
+
+    @PostMapping("/pagarBoleto/{idConta}/{idBoleto}")
+    public void pagarBoleto(@PathVariable Long idConta, @PathVariable Long idBoleto) {
+        service.pagar(idConta, idBoleto);
+    }
 }

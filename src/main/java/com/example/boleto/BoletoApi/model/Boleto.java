@@ -17,4 +17,5 @@ public class Boleto {
     @Column(unique = true)
     private String codigoDeBarras;
     private EnumStatus status;
+    private Double valor;
 }
