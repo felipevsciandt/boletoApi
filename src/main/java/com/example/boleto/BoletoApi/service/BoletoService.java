@@ -44,11 +44,12 @@ public class BoletoService {
         try {
             Optional<Boleto> object = repository.findById(idBoleto);
             if (!object.isPresent()) {
-                // Lanbcar ecexaso
+                // Lanbcar excessao
             }
             Boleto boleto = object.get();
             client.pagarBoleto(idConta, boleto.getValor());
             boleto.setStatus(EnumStatus.PAGO);
+            repository.save(boleto);
         } catch (Exception e) {
             throw new RuntimeException("Erro!");
         }
