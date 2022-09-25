@@ -2,6 +2,7 @@ package com.example.boleto.BoletoApi.controller;
 
 import com.example.boleto.BoletoApi.model.Boleto;
 import com.example.boleto.BoletoApi.service.BoletoService;
+import com.example.boleto.BoletoApi.service.exception.BoletoNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class BoletoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Boleto> findById(@PathVariable Long id) {
+    public ResponseEntity<Boleto> findById(@PathVariable Long id) throws BoletoNotFoundException {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
@@ -42,7 +43,7 @@ public class BoletoController {
     }
 
     @PostMapping("/pagarBoleto/{idConta}/{idBoleto}")
-    public void pagarBoleto(@PathVariable Long idConta, @PathVariable Long idBoleto) {
+    public void pagarBoleto(@PathVariable Long idConta, @PathVariable Long idBoleto) throws BoletoNotFoundException {
         service.pagar(idConta, idBoleto);
     }
 }
