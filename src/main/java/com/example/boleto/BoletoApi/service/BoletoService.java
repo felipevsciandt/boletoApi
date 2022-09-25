@@ -5,6 +5,7 @@ import com.example.boleto.BoletoApi.model.Boleto;
 import com.example.boleto.BoletoApi.model.EnumStatus;
 import com.example.boleto.BoletoApi.repository.BoletoRepository;
 import com.example.boleto.BoletoApi.service.exception.BoletoNotFoundException;
+import com.example.boleto.BoletoApi.service.exception.PagamentoRejeitadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,10 +54,17 @@ public class BoletoService {
             }
             Boleto boleto = object.get();
             client.pagarBoleto(idConta, boleto.getValor());
+            verificarSeBoletoEstaPago(boleto);
             boleto.setStatus(EnumStatus.PAGO);
             repository.save(boleto);
         } catch (Exception e) {
             throw new RuntimeException("Erro Ineseperado!");
+        }
+    }
+
+    public void verificarSeBoletoEstaPago(Boleto boleto) {
+        if (boleto.getStatus() == EnumStatus.PAGO) {
+            throw new PagamentoRejeitadoException("O boleto informado está pago!");
         }
     }
 }

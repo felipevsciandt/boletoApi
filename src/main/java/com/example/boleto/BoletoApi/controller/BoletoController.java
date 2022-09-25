@@ -3,6 +3,7 @@ package com.example.boleto.BoletoApi.controller;
 import com.example.boleto.BoletoApi.model.Boleto;
 import com.example.boleto.BoletoApi.service.BoletoService;
 import com.example.boleto.BoletoApi.service.exception.BoletoNotFoundException;
+import com.example.boleto.BoletoApi.service.exception.PagamentoRejeitadoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +44,8 @@ public class BoletoController {
     }
 
     @PostMapping("/pagarBoleto/{idConta}/{idBoleto}")
-    public void pagarBoleto(@PathVariable Long idConta, @PathVariable Long idBoleto) throws BoletoNotFoundException {
+    public void pagarBoleto(@PathVariable Long idConta, @PathVariable Long idBoleto)
+            throws BoletoNotFoundException, PagamentoRejeitadoException {
         service.pagar(idConta, idBoleto);
     }
 }
