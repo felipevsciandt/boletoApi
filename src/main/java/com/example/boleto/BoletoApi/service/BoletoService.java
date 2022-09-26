@@ -47,7 +47,7 @@ public class BoletoService {
     }
 
     public void pagar(Long idConta, Long idBoleto) {
-        try {
+
             Optional<Boleto> object = repository.findById(idBoleto);
             if (!object.isPresent()) {
                 throw new BoletoNotFoundException("Boleto nao cadastrado com esse Id");
@@ -57,9 +57,7 @@ public class BoletoService {
             verificarSeBoletoEstaPago(boleto);
             boleto.setStatus(EnumStatus.PAGO);
             repository.save(boleto);
-        } catch (Exception e) {
-            throw new RuntimeException("Erro Ineseperado!");
-        }
+
     }
 
     public void verificarSeBoletoEstaPago(Boleto boleto) {
