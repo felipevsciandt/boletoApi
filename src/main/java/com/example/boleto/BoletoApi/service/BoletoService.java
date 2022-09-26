@@ -53,8 +53,8 @@ public class BoletoService {
                 throw new BoletoNotFoundException("Boleto nao cadastrado com esse Id");
             }
             Boleto boleto = object.get();
-            client.pagarBoleto(idConta, boleto.getValor());
             verificarSeBoletoEstaPago(boleto);
+            client.pagarBoleto(idConta, boleto.getValor());
             boleto.setStatus(EnumStatus.PAGO);
             repository.save(boleto);
 
